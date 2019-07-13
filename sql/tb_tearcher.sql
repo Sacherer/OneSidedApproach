@@ -1,10 +1,10 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for tb_tearcher
+-- Table structure for tb_teacher
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_tearcher`;
-CREATE TABLE `tb_tearcher`
+DROP TABLE IF EXISTS `tb_teacher`;
+CREATE TABLE `tb_teacher`
 (
   `tid`            int(11)      NOT NULL ,
   `openid`      varchar(50) NOT NULL,

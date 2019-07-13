@@ -1,6 +1,6 @@
 package com.example.demo.po;
 
-public class Tearcher {
+public class Teacher {
     private Integer tid;
 
     private String openid;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.dao.TearcherMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.po.Tearcher">
+<mapper namespace="com.example.demo.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.po.Teacher">
     <id column="tid" jdbcType="INTEGER" property="tid" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="did" jdbcType="INTEGER" property="did" />
@@ -17,23 +17,23 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_tearcher
+    from tb_teacher
     where tid = #{tid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_tearcher
+    delete from tb_teacher
     where tid = #{tid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.po.Tearcher">
-    insert into tb_tearcher (tid, openid, did, 
+  <insert id="insert" parameterType="com.example.demo.po.Teacher">
+    insert into tb_teacher (tid, openid, did, 
       tname, avatar, phone, 
       gender, nickName)
     values (#{tid,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{did,jdbcType=INTEGER}, 
       #{tname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, 
       #{gender,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.po.Tearcher">
-    insert into tb_tearcher
+  <insert id="insertSelective" parameterType="com.example.demo.po.Teacher">
+    insert into tb_teacher
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tid != null">
         tid,
@@ -87,8 +87,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.po.Tearcher">
-    update tb_tearcher
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.po.Teacher">
+    update tb_teacher
     <set>
       <if test="openid != null">
         openid = #{openid,jdbcType=VARCHAR},
@@ -114,8 +114,8 @@
     </set>
     where tid = #{tid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.po.Tearcher">
-    update tb_tearcher
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.po.Teacher">
+    update tb_teacher
     set openid = #{openid,jdbcType=VARCHAR},
       did = #{did,jdbcType=INTEGER},
       tname = #{tname,jdbcType=VARCHAR},
