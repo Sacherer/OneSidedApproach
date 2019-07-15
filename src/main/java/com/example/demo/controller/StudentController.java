@@ -21,7 +21,7 @@ public class StudentController {
 
     @GetMapping("/authorize")
     public void authorize(@RequestParam String code){
-
+        
     }
 
     @GetMapping("/check")
