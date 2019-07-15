@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dao.TeacherMapper;
 import com.example.demo.dto.TeacherListDTO;
+import com.example.demo.po.Teacher;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,18 +38,5 @@ public class TeacherController {
         return false;
     }
 
-    @GetMapping("/getTeacherRecording")
-    public PageInfo<TeacherListDTO> getTeacherRecording(
-            @RequestParam(required = false) String sid,
-            @RequestParam(required = false) String sname,
-            @RequestParam(required = false) String nickname,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String dname,
-            @RequestParam(required = false,defaultValue = "1") Integer pageNum
-    ){
-        PageHelper.startPage(pageNum,5);
-        Page<TeacherListDTO> recordingListAll = teacherMapper.getSelectListAllInterface(sid,sname,nickname,name,dname);
-        PageInfo<TeacherListDTO> recordingListDTOPageInfo = recordingListAll.toPageInfo();
-        return recordingListDTOPageInfo;
-    }
+
 }
