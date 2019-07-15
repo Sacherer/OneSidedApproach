@@ -36,5 +36,6 @@ public class StudentController {
     @GetMapping("/send")
     public void sendSms(@RequestParam(value = "phone") String phone) {
         studentService.send(phone);
+        System.out.println(1);
     }
 }
