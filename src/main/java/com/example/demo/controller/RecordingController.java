@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.po.Recording;
+import com.example.demo.po.Student;
+import com.example.demo.po.Teacher;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
