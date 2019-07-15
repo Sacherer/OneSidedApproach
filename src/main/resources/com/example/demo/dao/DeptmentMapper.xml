@@ -68,4 +68,19 @@
       pid = #{pid,jdbcType=INTEGER}
     where did = #{did,jdbcType=INTEGER}
   </update>
+
+<!--  sql-->
+  <resultMap id="DeptmentNode" type="com.example.demo.dto.DeptmentNode">
+    <id column="did" jdbcType="INTEGER" property="did" />
+    <result column="dname" jdbcType="VARCHAR" property="dname" />
+    <collection property="subDeptments" javaType="ArrayList" column="did"
+                ofType="com.example.demo.dto.DeptmentNode" select="getSelectTree"/>
+  </resultMap>
+  <select id="getSelectTree" parameterType="java.lang.Integer" resultMap="DeptmentNode">
+    select
+    <include refid="Base_Column_List" />
+    from tb_deptment
+    where pid = #{did,jdbcType=INTEGER}
+  </select>
+
 </mapper>

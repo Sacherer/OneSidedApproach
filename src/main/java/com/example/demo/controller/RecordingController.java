@@ -1,11 +1,16 @@
 package com.example.demo.controller;
 
+import com.example.demo.dao.RecordingMapper;
+import com.example.demo.dto.StudentRecordIngListDTO;
 import com.example.demo.po.Recording;
 import com.example.demo.po.Student;
 import com.example.demo.po.Teacher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/recording")
@@ -13,7 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 @EnableAutoConfiguration
 public class RecordingController {
 
-
+    @Autowired
+    private RecordingMapper recordingMapper;
 
     @GetMapping("/checkStudent")
     public Student checkStudent(@RequestBody String openId){
@@ -28,9 +34,12 @@ public class RecordingController {
     }
 
     @GetMapping("/getStudentRecording")
-    public Recording getStudentRecording(@RequestBody(required = false) Recording recording){
-        Recording re = new Recording();
-        return re;
+    public List<StudentRecordIngListDTO> getStudentRecording(
+            @RequestBody(required = false) String sname,
+            @RequestBody(required = false) String name
+    ){
+        List<StudentRecordIngListDTO> studentRecordIngList = recordingMapper.getSelectByStudentList(sname,name);
+        return studentRecordIngList;
     }
 
     @GetMapping("/getTeacherRecording")
