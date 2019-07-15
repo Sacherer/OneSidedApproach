@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student selectByPrimaryKey(Integer sid) {
+    public Student selectByPrimaryKey(String sid) {
         return studentMapper.selectByPrimaryKey(sid);
     }
 }

@@ -20,7 +20,13 @@
     from tb_student
     where sid = #{sid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="getStudentByOpenId" resultType="com.example.demo.po.Student">
+      select
+      <include refid="Base_Column_List" />
+      from tb_student
+      where openid = #{openid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_student
     where sid = #{sid,jdbcType=VARCHAR}
   </delete>
