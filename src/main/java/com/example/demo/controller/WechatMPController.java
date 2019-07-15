@@ -1,6 +1,4 @@
 package com.example.demo.controller;
-import	java.util.Set;
-import	java.net.URLEncoder;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.api.WechatSnsApi;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/wechat")
