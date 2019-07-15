@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.po.Student;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

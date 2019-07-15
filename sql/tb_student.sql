@@ -6,7 +6,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `tb_student`;
 CREATE TABLE `tb_student`
 (
-  `sid`            int(11)      NOT NULL ,
+  `sid`            varchar(50)      NOT NULL ,
   `openid`      varchar(50) NOT NULL,
   `did`            int(11)    ,
   `avatar` varchar(255),

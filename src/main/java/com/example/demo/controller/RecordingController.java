@@ -1,15 +1,16 @@
 package com.example.demo.controller;
 
-import com.example.demo.po.Recording;
-import com.example.demo.po.Student;
-import com.example.demo.po.Teacher;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/recording")
 @CrossOrigin
+@EnableAutoConfiguration
 public class RecordingController {
+
+
 
     @GetMapping("/checkStudent")
     public Student checkStudent(@RequestBody String openId){
@@ -30,7 +31,7 @@ public class RecordingController {
     }
 
     @GetMapping("/getTeacherRecording")
-    public Recording getTeacherRecording(@RequestBody(required = false) Recording recording){
+    public  Recording getTeacherRecording(@RequestBody(required = false) Recording recording){
         Recording re = new Recording();
         return re;
     }

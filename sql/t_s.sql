@@ -7,8 +7,8 @@ DROP TABLE IF EXISTS `t_s`;
 CREATE TABLE `t_s`
 (
   `id`      int(11) NOT NULL auto_increment,
-  `sid`     int(11) ,
-  `tid`     int(11) ,
+  `sid`     varchar(50) ,
+  `tid`     varchar(50) ,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8
