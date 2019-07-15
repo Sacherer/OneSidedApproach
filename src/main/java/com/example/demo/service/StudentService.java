@@ -6,4 +6,6 @@ public interface StudentService {
     Student getStudentByOpenId(String openId);
 
     Student selectByPrimaryKey(String sid);
+
+    void send(String phone);
 }

@@ -14,24 +14,27 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/getStu")
-    public Student getStu(@RequestParam String sid){//
+    public Student getStu(@RequestParam String sid) {//
         Student student = studentService.selectByPrimaryKey(sid);
         return student;
     }
 
     @GetMapping("/authorize")
-    public void authorize(@RequestParam String code){
-        
+    public void authorize(@RequestParam String code) {
+
     }
 
     @GetMapping("/check")
-    public boolean check(@RequestParam String openId){
+    public boolean check(@RequestParam String openId) {
         Student student = studentService.getStudentByOpenId(openId);
-        if(student!=null){
+        if (student != null) {
             return true;
         }
         return false;
     }
 
-
+    @GetMapping("/send")
+    public void sendSms(@RequestParam(value = "phone") String phone) {
+        studentService.send(phone);
+    }
 }

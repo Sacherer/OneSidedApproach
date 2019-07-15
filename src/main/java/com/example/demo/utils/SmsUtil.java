@@ -23,17 +23,18 @@ import java.util.Date;
 @Component
 public class SmsUtil {
 
+    @Value("${sms.send.accessKeyId}")
+    private  String accessKeyId;
+    @Value("${sms.send.accessKeySecret}")
+    private  String accessKeySecret;
+
     //产品名称:云通信短信API产品,开发者无需替换
     static final String product = "Dysmsapi";
     //产品域名,开发者无需替换
     static final String domain = "dysmsapi.aliyuncs.com";
 
-    @Autowired
-    private Environment env;
-
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId="";
-    static final String accessKeySecret="${sms.send.accessKeySecret}";
+
     /**
      * 发送短信
      * @param mobile 手机号
@@ -71,8 +72,6 @@ public class SmsUtil {
     }
 
     public  QuerySendDetailsResponse querySendDetails(String mobile,String bizId) throws ClientException {
-        String accessKeyId =env.getProperty("accessKeyId");
-        String accessKeySecret = env.getProperty("accessKeySecret");
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
