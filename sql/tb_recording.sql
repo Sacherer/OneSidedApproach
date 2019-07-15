@@ -8,7 +8,7 @@ CREATE TABLE `tb_recording`
 (
   `rid`            int(11)      NOT NULL auto_increment,
   `cid`     int(11) ,
-  `sid`     int(11) ,
+  `sid`     varchar(50),
   `did`     int(11) ,
   `thumbup`           int(11)      ,
   `visits`            int(11)      ,
