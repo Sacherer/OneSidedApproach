@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.po.Student;
+import com.example.demo.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,9 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class StudentController {
 
+    @Autowired
+    private StudentService studentService;
+
     @GetMapping("/getStu")
     public Student getStu(@RequestParam String sid){//
-        Student student = new Student();
+        Student student = studentService.selectByPrimaryKey(sid);
         return student;
     }
 
@@ -20,7 +25,11 @@ public class StudentController {
     }
 
     @GetMapping("/check")
-    public boolean check(){
+    public boolean check(@RequestParam  String openId){
+        Student student = studentService.getStudentByOpenId(openId);
+        if(student!=null){
+            return true;
+        }
         return false;
     }
 
