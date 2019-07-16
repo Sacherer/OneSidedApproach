@@ -93,6 +93,9 @@
       </if>
     </trim>
   </insert>
+  <insert id="insertByImport">
+    insert into tb_student (sid,sname, did, phone) values (#{sid},#{sname},#{did},#{phone})
+  </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.po.Student">
     update tb_student
     <set>

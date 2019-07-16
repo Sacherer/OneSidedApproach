@@ -16,14 +16,13 @@ public class ImportExeclController {
     private ImportExeclService importExeclService;
 
     @PostMapping("/student")
-    public boolean student(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public boolean student(@RequestParam("file") MultipartFile multipartFile) {
         return importExeclService.importStudent(multipartFile);
     }
 
     @PostMapping("/teacher")
-    public boolean teacher(@RequestParam("file") MultipartFile file){
-
-        return false;
+    public boolean teacher(@RequestParam("file") MultipartFile multipartFile){
+        return importExeclService.importTeacher(multipartFile);
     }
 
     @PostMapping("/deptment")

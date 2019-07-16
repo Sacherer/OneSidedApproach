@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface ImportExeclService {
-    boolean importStudent(MultipartFile multipartFile) throws IOException;
+    boolean importStudent(MultipartFile multipartFile) ;
 
+    boolean importTeacher(MultipartFile multipartFile);
 }

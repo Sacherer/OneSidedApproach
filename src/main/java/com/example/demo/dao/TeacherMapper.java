@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.dto.ImportTeacherDTO;
 import com.example.demo.po.Teacher;
 
 public interface TeacherMapper {
@@ -20,4 +21,7 @@ public interface TeacherMapper {
     Teacher getTeacherByOpenId(String openId);
 
     int updateDeptmentByTid(String tid);
+
+    int insertByImport(ImportTeacherDTO importTeacherDTO);
+
 }

@@ -1,22 +1,19 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.StudentMapper;
+import com.example.demo.dao.TeacherMapper;
+import com.example.demo.dto.ImportStudentDTO;
+import com.example.demo.dto.ImportTeacherDTO;
 import com.example.demo.po.Student;
+import com.example.demo.po.Teacher;
 import com.example.demo.service.ImportExeclService;
-import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.example.demo.utils.ExcelUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,61 +22,48 @@ public class ImportExeclServiceImpl implements ImportExeclService {
     @Autowired
     private StudentMapper studentMapper;
 
+    @Autowired
+    private TeacherMapper teacherMapper;
+
     @Override
-    public boolean importStudent(MultipartFile multipartFile) throws IOException {
-        List<Student> list = new ArrayList<Student>();
-        XSSFWorkbook workbook =null;
-
-        //把MultipartFile转化为File
-        CommonsMultipartFile cmf= (CommonsMultipartFile)multipartFile;
-        DiskFileItem dfi=(DiskFileItem) cmf.getFileItem();
-        File fo=dfi.getStoreLocation();
-
-        //创建Excel，读取文件内容
-        workbook = new XSSFWorkbook(FileUtils.openInputStream(fo));
-
-        //获取第一个工作表
-        XSSFSheet sheet = workbook.getSheet("Sheet1");
-
-        //获取sheet中第一行行号
-        int firstRowNum = sheet.getFirstRowNum();
-        //获取sheet中最后一行行号
-        int lastRowNum = sheet.getLastRowNum();
-
+    public boolean importStudent(MultipartFile multipartFile) {
+        int i =0;
         try {
-            //循环插入数据
-            for(int i=firstRowNum+1;i<=lastRowNum;i++){
-                XSSFRow row = sheet.getRow(i);
-                Student student = new Student();
-
-                XSSFCell sid = row.getCell(0);//学号
-                if(sid!=null){
-                    student.setSid(sid.getStringCellValue());
+            List<ImportStudentDTO> importStudentDTOList = ExcelUtil.getImportStudentDTOList(multipartFile);
+            for (ImportStudentDTO importStudentDTO : importStudentDTOList) {
+                Student student = studentMapper.selectByPrimaryKey(importStudentDTO.getSid());
+                if(student==null){
+                    i=studentMapper.insertByImport(importStudentDTO);
                 }
-
-                XSSFCell sname = row.getCell(1);//姓名
-                if(sname!=null){
-                    student.setSname(sname.getStringCellValue());
-                }
-
-                XSSFCell phone = row.getCell(2);//手机号
-                if(phone!=null){
-                    student.setPhone(phone.getStringCellValue());
-                }
-
-                XSSFCell did = row.getCell(3);//班级
-                if(did!=null){
-                    student.setDid(Integer.parseInt(did.getStringCellValue()));
-                }
-                list.add(student);
             }
-            //usersMapper.insert(list);//往数据库插入数据
-        } catch (Exception e) {
+            if(i>0){
+                return true;
+            }
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            workbook.close();
         }
 
+
+        return false;
+    }
+
+    @Override
+    public boolean importTeacher(MultipartFile multipartFile) {
+        int i =0;
+        try {
+            List<ImportTeacherDTO> importTeacherDTOList = ExcelUtil.getImportTeacherDTOList(multipartFile);
+            for (ImportTeacherDTO importTeacherDTO : importTeacherDTOList) {
+                Teacher teacher = teacherMapper.selectByPrimaryKey(importTeacherDTO.getTid());
+                if(teacher==null){
+                    i=teacherMapper.insertByImport(importTeacherDTO);
+                }
+            }
+            if(i>0){
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

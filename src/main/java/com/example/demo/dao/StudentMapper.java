@@ -1,6 +1,9 @@
 package com.example.demo.dao;
 
+import com.example.demo.dto.ImportStudentDTO;
 import com.example.demo.po.Student;
+
+import java.util.List;
 
 public interface StudentMapper {
     int deleteByPrimaryKey(String sid);
@@ -18,4 +21,6 @@ public interface StudentMapper {
     Student getStudentByOpenId(String openId);
 
     void updateBySid(String sid, String openId, String nickname, String sex, String headimgurl);
+
+    int insertByImport(ImportStudentDTO importStudentDTO);
 }
