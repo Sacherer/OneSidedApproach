@@ -9,7 +9,7 @@ public class Student {
 
     private String avatar;
 
-    private Integer phone;
+    private String phone;
 
     private Byte gender;
 
@@ -49,12 +49,12 @@ public class Student {
         this.avatar = avatar == null ? null : avatar.trim();
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
-        this.phone = phone;
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 
     public Byte getGender() {

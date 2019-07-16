@@ -1,6 +1,5 @@
 package com.example.demo.dao;
 
-import com.example.demo.dto.WechatUser;
 import com.example.demo.po.Student;
 
 public interface StudentMapper {
@@ -18,5 +17,5 @@ public interface StudentMapper {
 
     Student getStudentByOpenId(String openId);
 
-    void updateBySid(String sid, String openId,String nickname,String sex,String headimgurl);
+    void updateBySid(String sid, String openId, String nickname, String sex, String headimgurl);
 }

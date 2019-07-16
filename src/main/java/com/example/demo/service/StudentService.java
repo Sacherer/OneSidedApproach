@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.WechatUser;
 import com.example.demo.po.Student;
 
 public interface StudentService {

@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.example.demo.dao.StudentMapper;
-import com.example.demo.dto.WechatUser;
 import com.example.demo.po.Student;
 import com.example.demo.service.StudentService;
 import com.example.demo.utils.SmsUtil;

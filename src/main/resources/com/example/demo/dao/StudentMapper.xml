@@ -6,7 +6,7 @@
     <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="did" jdbcType="INTEGER" property="did" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="gender" jdbcType="TINYINT" property="gender" />
     <result column="sname" jdbcType="VARCHAR" property="sname" />
     <result column="nickName" jdbcType="VARCHAR" property="nickname" />
@@ -35,7 +35,7 @@
       avatar, phone, gender, 
       sname, nickName)
     values (#{sid,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{did,jdbcType=INTEGER}, 
-      #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, #{gender,jdbcType=TINYINT}, 
+      #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, 
       #{sname,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.po.Student">
@@ -80,7 +80,7 @@
         #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=TINYINT},
@@ -106,7 +106,7 @@
         avatar = #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         gender = #{gender,jdbcType=TINYINT},
@@ -125,15 +125,15 @@
     set openid = #{openid,jdbcType=VARCHAR},
       did = #{did,jdbcType=INTEGER},
       avatar = #{avatar,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=TINYINT},
       sname = #{sname,jdbcType=VARCHAR},
       nickName = #{nickname,jdbcType=VARCHAR}
     where sid = #{sid,jdbcType=VARCHAR}
   </update>
-    <update id="updateBySid">
-      update tb_student
+  <update id="updateBySid">
+    update tb_student
     set openid = #{openId}, avatar=#{headimgurl},gender=#{sex},nickName=#{nickname}
     where sid = #{sid}
-    </update>
+  </update>
 </mapper>

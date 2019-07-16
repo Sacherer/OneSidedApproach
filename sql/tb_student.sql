@@ -7,10 +7,10 @@ DROP TABLE IF EXISTS `tb_student`;
 CREATE TABLE `tb_student`
 (
   `sid`            varchar(50)      NOT NULL ,
-  `openid`      varchar(50) NOT NULL,
+  `openid`      varchar(50) ,
   `did`            int(11)    ,
   `avatar` varchar(255),
-  `phone` int(11)  ,
+  `phone` varchar(12)  NOT NULL,
   `gender`  tinyint,
   `sname`           varchar(255) NOT NULL,
   `nickName` varchar(255),

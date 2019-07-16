@@ -1,17 +1,23 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.ImportExeclService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/import")
 @CrossOrigin
 public class ImportExeclController {
 
-    @PostMapping("/student")
-    public boolean student(@RequestParam("file") MultipartFile file){
+    @Autowired
+    private ImportExeclService importExeclService;
 
-        return false;
+    @PostMapping("/student")
+    public boolean student(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+        return importExeclService.importStudent(multipartFile);
     }
 
     @PostMapping("/teacher")

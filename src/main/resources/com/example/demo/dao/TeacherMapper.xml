@@ -7,7 +7,7 @@
     <result column="did" jdbcType="INTEGER" property="did" />
     <result column="tname" jdbcType="VARCHAR" property="tname" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="gender" jdbcType="TINYINT" property="gender" />
     <result column="nickName" jdbcType="VARCHAR" property="nickname" />
   </resultMap>
@@ -35,7 +35,7 @@
       tname, avatar, phone, 
       gender, nickName)
     values (#{tid,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{did,jdbcType=INTEGER}, 
-      #{tname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, 
+      #{tname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{gender,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.po.Teacher">
@@ -83,7 +83,7 @@
         #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=TINYINT},
@@ -109,7 +109,7 @@
         avatar = #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         gender = #{gender,jdbcType=TINYINT},
@@ -126,7 +126,7 @@
       did = #{did,jdbcType=INTEGER},
       tname = #{tname,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=TINYINT},
       nickName = #{nickname,jdbcType=VARCHAR}
     where tid = #{tid,jdbcType=VARCHAR}
