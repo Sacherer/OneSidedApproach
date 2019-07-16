@@ -44,12 +44,13 @@ public class RecordingController {
 
     @GetMapping("/getStudentRecording")
     public PageInfo<StudentRecordIngListDTO> getStudentRecording(
-            @RequestBody(required = false) String sname,
-            @RequestBody(required = false) String name,
+            @RequestParam(required = false) String sname,
+            @RequestParam(required = false) String name,
             @RequestParam(required = false,defaultValue = "1") Integer pageNum
     ){
         PageHelper.startPage(pageNum,5);
         Page<StudentRecordIngListDTO> RecordIngList = recordingMapper.getSelectByStudentList(sname,name);
+
         for (StudentRecordIngListDTO recordings : RecordIngList) {
             LinkedList<Deptment> list = new LinkedList<>();
             Deptment deptment = deptmentMapper.selectByPrimaryKey(recordings.getDid());
