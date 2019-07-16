@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.example.demo.dao.StudentMapper;
+import com.example.demo.dto.WechatUser;
 import com.example.demo.po.Student;
 import com.example.demo.service.StudentService;
 import com.example.demo.utils.SmsUtil;
@@ -57,5 +58,15 @@ public class StudentServiceImpl implements StudentService {
         } catch (ClientException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean authorize(String code, String phone,String sid, String openId,String nickname,String sex,String headimgurl) {
+        String syscode = (String)redisTemplate.opsForValue().get("code" + phone);
+        if(syscode!=null&&syscode.equals(code)){
+            studentMapper.updateBySid(sid,openId,nickname,sex,headimgurl);
+            return true;
+        }
+        return false;
     }
 }
