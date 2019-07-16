@@ -20,4 +20,6 @@ public interface DeptmentMapper {
     int updateByPrimaryKey(Deptment record);
 
     List<DeptmentNode> getSelectTree(@Param("did") Integer did);
+
+    Deptment getSelectByAreaId(@Param("pid") Integer pid);
 }

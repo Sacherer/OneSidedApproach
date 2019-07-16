@@ -1,15 +1,22 @@
 package com.example.demo.controller;
 
+import com.github.pagehelper.Page;
+import com.example.demo.dao.DeptmentMapper;
 import com.example.demo.dao.RecordingMapper;
 import com.example.demo.dto.StudentRecordIngListDTO;
+import com.example.demo.po.Deptment;
 import com.example.demo.po.Recording;
 import com.example.demo.po.Student;
 import com.example.demo.po.Teacher;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -20,6 +27,8 @@ public class RecordingController {
 
     @Autowired
     private RecordingMapper recordingMapper;
+    @Autowired
+    private DeptmentMapper deptmentMapper;
 
     @GetMapping("/checkStudent")
     public Student checkStudent(@RequestBody String openId){
@@ -34,12 +43,28 @@ public class RecordingController {
     }
 
     @GetMapping("/getStudentRecording")
-    public List<StudentRecordIngListDTO> getStudentRecording(
+    public PageInfo<StudentRecordIngListDTO> getStudentRecording(
             @RequestBody(required = false) String sname,
-            @RequestBody(required = false) String name
+            @RequestBody(required = false) String name,
+            @RequestParam(required = false,defaultValue = "1") Integer pageNum
     ){
-        List<StudentRecordIngListDTO> studentRecordIngList = recordingMapper.getSelectByStudentList(sname,name);
-        return studentRecordIngList;
+        PageHelper.startPage(pageNum,5);
+        Page<StudentRecordIngListDTO> RecordIngList = recordingMapper.getSelectByStudentList(sname,name);
+        for (StudentRecordIngListDTO recordings : RecordIngList) {
+            LinkedList<Deptment> list = new LinkedList<>();
+            Deptment deptment = deptmentMapper.selectByPrimaryKey(recordings.getDid());
+            list.add(deptment);
+            Integer pid = deptment.getPid();
+            if(pid!=null && pid!=0){
+                deptment = deptmentMapper.getSelectByAreaId(pid);
+                list.add(deptment);
+                pid = deptment.getPid();
+            }
+            Collections.reverse(list);
+            recordings.setDeptments(list);
+        }
+        PageInfo<StudentRecordIngListDTO> studentRecordIngListDTOPageInfo = RecordIngList.toPageInfo();
+        return studentRecordIngListDTOPageInfo;
     }
 
     @GetMapping("/getTeacherRecording")

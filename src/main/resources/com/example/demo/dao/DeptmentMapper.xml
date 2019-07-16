@@ -83,4 +83,10 @@
     where pid = #{did,jdbcType=INTEGER}
   </select>
 
+  <select id="getSelectByAreaId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_deptment
+    where did = #{pid,jdbcType=INTEGER}
+  </select>
 </mapper>
