@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.TeacherRecordIngListDTO;
 import com.github.pagehelper.Page;
 import com.example.demo.dao.DeptmentMapper;
 import com.example.demo.dao.RecordingMapper;
@@ -29,6 +30,8 @@ public class RecordingController {
     private RecordingMapper recordingMapper;
     @Autowired
     private DeptmentMapper deptmentMapper;
+
+
 
     @GetMapping("/checkStudent")
     public Student checkStudent(@RequestBody String openId){
@@ -69,9 +72,29 @@ public class RecordingController {
     }
 
     @GetMapping("/getTeacherRecording")
-    public  Recording getTeacherRecording(@RequestBody(required = false) Recording recording){
-        Recording re = new Recording();
-        return re;
+    public  PageInfo<TeacherRecordIngListDTO> getTeacherRecording(
+            @RequestParam(required = false) String sname,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String sid,
+            @RequestParam(required = false,defaultValue = "1") Integer pageNum
+    ){
+        PageHelper.startPage(pageNum,5);
+        Page<TeacherRecordIngListDTO> teacherRecordIng = recordingMapper.getSelectByTeacherList(sname,name,sid);
+        for (TeacherRecordIngListDTO teacherList : teacherRecordIng) {
+            LinkedList<Deptment> list = new LinkedList<>();
+            Deptment deptment = deptmentMapper.selectByPrimaryKey(teacherList.getDid());
+            list.add(deptment);
+            Integer pid = deptment.getPid();
+            if(pid != null && pid !=0){
+                deptment = deptmentMapper.getSelectByAreaId(pid);
+                list.add(deptment);
+                pid = deptment.getPid();
+            }
+           Collections.reverse(list);
+            teacherList.setDeptments(list);
+        }
+        PageInfo<TeacherRecordIngListDTO> teacherRecordIngListDTOPageInfo = teacherRecordIng.toPageInfo();
+        return teacherRecordIngListDTOPageInfo;
     }
 
     @PostMapping("/upload")
