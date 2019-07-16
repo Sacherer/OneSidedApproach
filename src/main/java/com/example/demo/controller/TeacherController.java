@@ -1,11 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dao.TeacherMapper;
-import com.example.demo.dto.TeacherListDTO;
 import com.example.demo.po.Teacher;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.example.demo.service.StudentService;
+import com.example.demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,28 +12,45 @@ import org.springframework.web.bind.annotation.*;
 public class TeacherController {
 
     @Autowired
-    private TeacherMapper teacherMapper;
+    private StudentService studentService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     @GetMapping("/getTeacher")
     public Teacher getTeacher(@RequestParam String tid){
-        Teacher teacher = new Teacher();
+        Teacher teacher = teacherService.selectByPrimaryKey(tid);
         return teacher;
     }
 
     @GetMapping("/authorize")
-    public void authorize(@RequestParam String code){
-
+    public boolean authorize(@RequestParam String code,
+                             @RequestParam String phone,
+                             @RequestParam String tid,
+                             @RequestParam String openId,
+                             @RequestParam String nickname,
+                             @RequestParam String sex,
+                             @RequestParam String headimgurl){
+        return teacherService.authorize(code,phone,tid,openId,nickname,sex,headimgurl);
     }
 
     @GetMapping("/check")
-    public boolean check(){
+    public boolean check(@RequestParam String openId){
+        Teacher teacher = teacherService.getTeacherByOpenId(openId);
+        if(teacher!=null){
+            return true;
+        }
         return false;
     }
     
     @PostMapping("/updateDeptment")
-    public boolean updateDeptment(){
-        return false;
+    public boolean updateDeptment(@RequestParam String tid){
+        return teacherService.updateDeptment(tid);
     }
 
+    @GetMapping("/send")
+    public void sendSms(@RequestParam String phone) {
+        studentService.send(phone);
+    }
 
 }

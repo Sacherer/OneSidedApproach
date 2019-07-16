@@ -20,8 +20,14 @@ public class StudentController {
     }
 
     @GetMapping("/authorize")
-    public void authorize(@RequestParam String code) {
-
+    public boolean authorize(@RequestParam String code,
+                             @RequestParam String phone,
+                             @RequestParam String sid,
+                             @RequestParam String openId,
+                             @RequestParam String nickname,
+                             @RequestParam String sex,
+                             @RequestParam String headimgurl) {
+        return studentService.authorize(code,phone,sid,openId,nickname,sex,headimgurl);
     }
 
     @GetMapping("/check")
@@ -34,8 +40,7 @@ public class StudentController {
     }
 
     @GetMapping("/send")
-    public void sendSms(@RequestParam(value = "phone") String phone) {
+    public void sendSms(@RequestParam String phone) {
         studentService.send(phone);
-        System.out.println(1);
     }
 }

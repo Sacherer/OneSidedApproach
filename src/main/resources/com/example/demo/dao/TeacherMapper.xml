@@ -20,6 +20,12 @@
     from tb_teacher
     where tid = #{tid,jdbcType=VARCHAR}
   </select>
+  <select id="getTeacherByOpenId" resultType="com.example.demo.po.Teacher">
+    select
+    <include refid="Base_Column_List" />
+    from tb_teacher
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_teacher
     where tid = #{tid,jdbcType=VARCHAR}
@@ -123,6 +129,16 @@
       phone = #{phone,jdbcType=INTEGER},
       gender = #{gender,jdbcType=TINYINT},
       nickName = #{nickname,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByTid">
+      update tb_teacher
+    set openid = #{openId}, avatar=#{headimgurl},gender=#{sex},nickName=#{nickname}
+    where tid = #{tid}
+    </update>
+  <update id="updateDeptmentByTid">
+     update tb_teacher
+    set did = #{did,jdbcType=INTEGER}
     where tid = #{tid,jdbcType=VARCHAR}
   </update>
 </mapper>

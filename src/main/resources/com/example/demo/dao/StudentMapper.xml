@@ -131,4 +131,9 @@
       nickName = #{nickname,jdbcType=VARCHAR}
     where sid = #{sid,jdbcType=VARCHAR}
   </update>
+    <update id="updateBySid">
+      update tb_student
+    set openid = #{openId}, avatar=#{headimgurl},gender=#{sex},nickName=#{nickname}
+    where sid = #{sid}
+    </update>
 </mapper>

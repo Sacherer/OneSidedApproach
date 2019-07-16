@@ -18,4 +18,9 @@ public interface TeacherMapper {
 
     int updateByPrimaryKey(Teacher record);
 
+    void updateByTid(String tid, String openId,String nickname,String sex,String headimgurl);
+
+    Teacher getTeacherByOpenId(String openId);
+
+    int updateDeptmentByTid(String tid);
 }
