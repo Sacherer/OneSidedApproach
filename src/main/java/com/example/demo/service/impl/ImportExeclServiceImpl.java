@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dao.StudentMapper;
 import com.example.demo.po.Student;
 import com.example.demo.service.ImportExeclService;
 import org.apache.commons.fileupload.disk.DiskFileItem;
@@ -8,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -19,6 +21,9 @@ import java.util.List;
 
 @Service
 public class ImportExeclServiceImpl implements ImportExeclService {
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public boolean importStudent(MultipartFile multipartFile) throws IOException {
@@ -62,9 +67,11 @@ public class ImportExeclServiceImpl implements ImportExeclService {
                     student.setPhone(phone.getStringCellValue());
                 }
 
-                XSSFCell did = row.getCell(3);//身份
-                if(did!=null)
-                list.add(users);
+                XSSFCell did = row.getCell(3);//班级
+                if(did!=null){
+                    student.setDid(Integer.parseInt(did.getStringCellValue()));
+                }
+                list.add(student);
             }
             //usersMapper.insert(list);//往数据库插入数据
         } catch (Exception e) {
