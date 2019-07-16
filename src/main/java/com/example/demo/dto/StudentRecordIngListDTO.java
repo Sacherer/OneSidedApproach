@@ -8,7 +8,7 @@ import java.util.List;
 public class StudentRecordIngListDTO extends Recording {
     private String name;
     private String avatar;
-    private Integer phone;
+    private String phone;
     private String sname;
     private Byte gender;
     private List<Deptment> deptments;
@@ -37,11 +37,12 @@ public class StudentRecordIngListDTO extends Recording {
         this.avatar = avatar;
     }
 
-    public Integer getPhone() {
+
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

@@ -151,13 +151,13 @@
     <result column="fileUrl" jdbcType="VARCHAR" property="fileurl" />
     <result column="isAdopt" jdbcType="INTEGER" property="isadopt" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="gender" jdbcType="TINYINT" property="gender" />
     <result column="sname" jdbcType="VARCHAR" property="sname" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <select id="getSelectByStudentList" resultMap="StudentRecordIngListDTO">
-     SELECT stu.avatar,stu.gender,stu.phone,stu.sname,pany.`name`,rec.fileUrl,rec.recordingTime from tb_student stu,tb_company pany,tb_recording rec where
+     SELECT stu.avatar,stu.gender,stu.phone,stu.sname,pany.`name`,rec.* from tb_student stu,tb_company pany,tb_recording rec where
       rec.sid=stu.sid and rec.cid=pany.cid
     <if test="sname != null and sname != ''">
       AND sname like concat ('%',#{sname},'%')
