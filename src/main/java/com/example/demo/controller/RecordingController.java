@@ -11,14 +11,17 @@ import com.example.demo.po.Student;
 import com.example.demo.po.Teacher;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import javafx.beans.binding.Bindings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/recording")
@@ -33,7 +36,7 @@ public class RecordingController {
 
 
 
-    @GetMapping("/checkStudent")
+    @GetMapping("/checkStudent")//did
     public Student checkStudent(@RequestBody String openId){
         Student student = new Student();
         return student;
@@ -98,9 +101,16 @@ public class RecordingController {
     }
 
     @PostMapping("/upload")
-    public boolean upload(@RequestParam("file") MultipartFile file,Recording recording){
-
-        return false;
+    public void upload(HttpServletRequest request, @RequestParam("file") List<MultipartFile> files, Recording recording) throws IOException {
+        // 上传本地音频
+       for (MultipartFile file : files) {
+            byte data[] =  file.getBytes();
+            String uuid = UUID.randomUUID().toString();
+            FileOutputStream out = new FileOutputStream(uuid);
+            System.out.println(uuid); // 获取音频的名称
+            out.write(data);
+            out.close();
+        }
     }
 
     @GetMapping("/getRecording")
