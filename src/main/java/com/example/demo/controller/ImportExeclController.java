@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/import")
@@ -16,8 +15,8 @@ public class ImportExeclController {
     private ImportExeclService importExeclService;
 
     @PostMapping("/student")
-    public boolean student(@RequestParam("file") MultipartFile multipartFile) {
-        return importExeclService.importStudent(multipartFile);
+    public boolean student(@RequestParam("file") MultipartFile multipartFile,@RequestParam("id") Integer id) {
+        return importExeclService.importStudent(multipartFile,id);
     }
 
     @PostMapping("/teacher")

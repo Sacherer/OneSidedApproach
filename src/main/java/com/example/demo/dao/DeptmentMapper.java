@@ -22,4 +22,6 @@ public interface DeptmentMapper {
     List<DeptmentNode> getSelectTree(@Param("did") Integer did);
 
     Deptment getSelectByAreaId(@Param("pid") Integer pid);
+
+    Deptment selectByName(@Param("did")String did,@Param("id")Integer id);
 }

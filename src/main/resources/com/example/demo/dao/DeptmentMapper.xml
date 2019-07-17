@@ -19,7 +19,7 @@
     delete from tb_deptment
     where did = #{did,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.po.Deptment">
+  <insert id="insert" parameterType="com.example.demo.po.Deptment" useGeneratedKeys="true" keyProperty="did">
     insert into tb_deptment (did, dname, pid
       )
     values (#{did,jdbcType=INTEGER}, #{dname,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}
@@ -89,4 +89,10 @@
     from tb_deptment
     where did = #{pid,jdbcType=INTEGER}
   </select>
+    <select id="selectByName" resultType="com.example.demo.po.Deptment">
+      select
+      <include refid="Base_Column_List" />
+      from tb_deptment
+      where instr(dname,#{did}) and pid =#{id}
+    </select>
 </mapper>

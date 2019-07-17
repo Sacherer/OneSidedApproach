@@ -1,9 +1,11 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dao.DeptmentMapper;
 import com.example.demo.dao.StudentMapper;
 import com.example.demo.dao.TeacherMapper;
 import com.example.demo.dto.ImportStudentDTO;
 import com.example.demo.dto.ImportTeacherDTO;
+import com.example.demo.po.Deptment;
 import com.example.demo.po.Student;
 import com.example.demo.po.Teacher;
 import com.example.demo.service.ImportExeclService;
@@ -25,14 +27,27 @@ public class ImportExeclServiceImpl implements ImportExeclService {
     @Autowired
     private TeacherMapper teacherMapper;
 
+    @Autowired
+    private DeptmentMapper deptmentMapper;
+
     @Override
-    public boolean importStudent(MultipartFile multipartFile) {
+    public boolean importStudent(MultipartFile multipartFile,Integer id) {
         int i =0;
         try {
             List<ImportStudentDTO> importStudentDTOList = ExcelUtil.getImportStudentDTOList(multipartFile);
             for (ImportStudentDTO importStudentDTO : importStudentDTOList) {
                 Student student = studentMapper.selectByPrimaryKey(importStudentDTO.getSid());
                 if(student==null){
+                    Deptment deptment = deptmentMapper.selectByName(importStudentDTO.getDid(),id);
+                    if(deptment!=null){
+                        importStudentDTO.setDid(deptment.getDid()+"");
+                    }else{
+                        Deptment dep = new Deptment();
+                        dep.setDname(importStudentDTO.getDid());
+                        dep.setPid(id);
+                        deptmentMapper.insert(dep);
+                        importStudentDTO.setDid(dep.getDid()+"");
+                    }
                     i=studentMapper.insertByImport(importStudentDTO);
                 }
             }
