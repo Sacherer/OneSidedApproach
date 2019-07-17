@@ -26,11 +26,11 @@ public class WechatMPController {
     private String secret;
 
     @GetMapping("/getUserInfo")
-    public WechatUser getUserInfo(@RequestParam String code){
+    public WechatUser getUserInfo(@RequestParam String code) {
         String authorization_code = wechatSnsApi.getUserAccessToken(appid, secret, code, "authorization_code");
         JSONObject getTokenJson = JSONObject.parseObject(authorization_code);
         String openid = getTokenJson.getString("openid");
-        logger.info("openId:{}",openid);
+        logger.info("openId:{}", openid);
         String access_token = getTokenJson.getString("access_token");
         String refresh_token = getTokenJson.getString("refresh_token");
         // 第五步验证access_token是否失效

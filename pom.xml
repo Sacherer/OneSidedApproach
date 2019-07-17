@@ -20,10 +20,10 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -42,12 +42,11 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>com.marvinformatics.formatter</groupId>-->
-<!--            <artifactId>formatter-maven-plugin</artifactId>-->
-<!--            <version>1.3.0</version>-->
-<!--        </dependency>-->
-
+        <!--        <dependency>-->
+        <!--            <groupId>com.marvinformatics.formatter</groupId>-->
+        <!--            <artifactId>formatter-maven-plugin</artifactId>-->
+        <!--            <version>1.3.0</version>-->
+        <!--        </dependency>-->
 
 
         <dependency>
@@ -104,6 +103,27 @@
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.0</version>
         </dependency>
+
+<!--     fastdfs-client-java    -->
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.27-SNAPSHOT</version>
+        </dependency>
+
+      <!--  <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+            <version>1.26.1-RELEASE</version>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/in.clouthink.repack/fastdfs-client-java -->
+        <dependency>
+            <groupId>in.clouthink.repack</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.29.4</version>
+        </dependency>
+
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -112,11 +132,13 @@
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-base</artifactId>
-            <version>3.0.3</version> </dependency>
+            <version>3.0.3</version>
+        </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-web</artifactId>
-            <version>3.0.3</version> </dependency>
+            <version>3.0.3</version>
+        </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-annotation</artifactId>
@@ -157,5 +179,5 @@
             </plugin>
         </plugins>
     </build>
-    
+
 </project>

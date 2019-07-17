@@ -4,6 +4,7 @@ import com.example.demo.po.Deptment;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class DeptmentNode {
     private Integer did;
@@ -19,7 +20,6 @@ public class DeptmentNode {
     public void setSubDeptments(List<DeptmentNode> subDeptments) {
         this.subDeptments = subDeptments;
     }
-
 
 
     public Integer getDid() {
