@@ -2,11 +2,13 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.DeptmentMapper;
 import com.example.demo.dao.StudentMapper;
+import com.example.demo.dao.TDMapper;
 import com.example.demo.dao.TeacherMapper;
 import com.example.demo.dto.ImportStudentDTO;
 import com.example.demo.dto.ImportTeacherDTO;
 import com.example.demo.po.Deptment;
 import com.example.demo.po.Student;
+import com.example.demo.po.TD;
 import com.example.demo.po.Teacher;
 import com.example.demo.service.ImportExeclService;
 import com.example.demo.utils.ExcelUtil;
@@ -29,6 +31,9 @@ public class ImportExeclServiceImpl implements ImportExeclService {
 
     @Autowired
     private DeptmentMapper deptmentMapper;
+
+    @Autowired
+    private TDMapper tdMapper;
 
     @Override
     public boolean importStudent(MultipartFile multipartFile,Integer id) {
@@ -63,13 +68,33 @@ public class ImportExeclServiceImpl implements ImportExeclService {
     }
 
     @Override
-    public boolean importTeacher(MultipartFile multipartFile) {
+    public boolean importTeacher(MultipartFile multipartFile,Integer id) {
         int i =0;
         try {
             List<ImportTeacherDTO> importTeacherDTOList = ExcelUtil.getImportTeacherDTOList(multipartFile);
             for (ImportTeacherDTO importTeacherDTO : importTeacherDTOList) {
                 Teacher teacher = teacherMapper.selectByPrimaryKey(importTeacherDTO.getTid());
                 if(teacher==null){
+                    String[] split = importTeacherDTO.getDid().split(" ");
+                    for (String s : split) {
+                        Deptment deptment = deptmentMapper.selectByName(s, id);
+                        if(deptment!=null){
+                            TD td = new TD();
+                            td.setDid(deptment.getDid());
+                            td.setTid(importTeacherDTO.getTid());
+                            tdMapper.insert(td);
+                        }else{
+                            Deptment dep = new Deptment();
+                            dep.setDname(s);
+                            dep.setPid(id);
+                            deptmentMapper.insert(dep);
+                            TD td = new TD();
+                            td.setDid(dep.getDid());
+                            td.setTid(importTeacherDTO.getTid());
+                            tdMapper.insert(td);
+                        }
+                    }
+                    importTeacherDTO.setDid(null);
                     i=teacherMapper.insertByImport(importTeacherDTO);
                 }
             }

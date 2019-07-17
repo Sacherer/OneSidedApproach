@@ -20,13 +20,9 @@ public class ImportExeclController {
     }
 
     @PostMapping("/teacher")
-    public boolean teacher(@RequestParam("file") MultipartFile multipartFile){
-        return importExeclService.importTeacher(multipartFile);
+    public boolean teacher(@RequestParam("file") MultipartFile multipartFile,@RequestParam("id") Integer id){
+        return importExeclService.importTeacher(multipartFile,id);
     }
 
-    @PostMapping("/deptment")
-    public boolean deptment(@RequestParam("file") MultipartFile file){
 
-        return false;
-    }
 }

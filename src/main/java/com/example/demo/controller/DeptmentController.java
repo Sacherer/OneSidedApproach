@@ -14,12 +14,20 @@ import java.util.List;
 @CrossOrigin
 @EnableAutoConfiguration
 public class DeptmentController {
-         @Autowired
-         private DeptmentMapper deptmentMapper;
+
+    @Autowired
+    private DeptmentMapper deptmentMapper;
 
     @GetMapping("/getAreaAll")
     public List<DeptmentNode> getAreaAll(@RequestParam Integer did){
         List<DeptmentNode> deptmentNodes = deptmentMapper.getSelectTree(did);
         return deptmentNodes;
     }
+
+    @GetMapping("/getCollege")
+    public List<Deptment> getCollege(){
+        List<Deptment> deptmentList = deptmentMapper.getCollege();
+        return deptmentList;
+    }
+
 }

@@ -24,4 +24,7 @@ public interface DeptmentMapper {
     Deptment getSelectByAreaId(@Param("pid") Integer pid);
 
     Deptment selectByName(@Param("did")String did,@Param("id")Integer id);
+
+    List<Deptment> getCollege();
+
 }

@@ -7,5 +7,5 @@ import java.io.IOException;
 public interface ImportExeclService {
     boolean importStudent(MultipartFile multipartFile,Integer id) ;
 
-    boolean importTeacher(MultipartFile multipartFile);
+    boolean importTeacher(MultipartFile multipartFile,Integer id);
 }
