@@ -11,8 +11,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.demo.dao.RecordingMapper;
-import com.example.demo.po.Recording;
 import com.example.demo.utils.FastDFSClient;
 import com.example.demo.utils.FastDFSPollClient;
 import com.example.demo.utils.FileUtil;
@@ -33,8 +31,6 @@ public class FileController
     @Autowired
     private FastDFSPollClient fastDFSPollClient;
 
-    @Autowired
-    private RecordingMapper recordingMapper;
 
     /**
      * 上传文件
