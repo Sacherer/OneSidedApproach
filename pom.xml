@@ -117,6 +117,14 @@
             <version>1.26.1-RELEASE</version>
         </dependency>-->
 
+        <!-- https://mvnrepository.com/artifact/org.mobicents.tools/heartbeat-api -->
+        <dependency>
+            <groupId>org.mobicents.tools</groupId>
+            <artifactId>heartbeat-api</artifactId>
+            <version>10.1.227</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/in.clouthink.repack/fastdfs-client-java -->
         <dependency>
             <groupId>in.clouthink.repack</groupId>

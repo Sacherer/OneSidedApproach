@@ -5,6 +5,7 @@ package com.example.demo.controller;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,13 +78,26 @@ public class FileController
      * @author kokJuis
      * @version 1.0
      * @date 2016-12-12
-     * @param imagePath
-     * @param local
      * @return
      */
     @RequestMapping(value = "getFileByPath", method = RequestMethod.GET)
-    public void getFileByPath(HttpServletResponse response, String path)
-    {
+    public void getFileByPath(HttpServletResponse response, @RequestParam("path") String path,
+                              @RequestParam("sname") String sname,
+                              @RequestParam("cname") String cname,
+                              @RequestParam("recordingTime") String recordingTime,
+                              @RequestParam("dname") String dname,
+                              @RequestParam("isAdopt") Integer isAdopt) {
+        String adopt;
+        if(isAdopt==1){
+            adopt="面试通过";
+        }else if(isAdopt==0){
+            adopt="面试未通过";
+        }else{
+            adopt="等待通知";
+        }
+        String filename=FileUtil.getOriginalFilename(path);
+        String subFilename=filename.substring(filename.indexOf("."),filename.length());
+        String filenames =dname+sname+cname+recordingTime+adopt+subFilename;
 
         try
         {
@@ -92,10 +106,11 @@ public class FileController
             {
                 byte[] buffer = fastDFSClient.downloadFile(path);
                 // 清空response
+                filenames=URLEncoder.encode(filenames, "UTF-8");
                 response.reset();
                 // 设置response的Header
                 response.addHeader("Content-Disposition",
-                        "attachment;filename=" + FileUtil.getOriginalFilename(path));
+                        "attachment;filename=" + filenames);
                 response.addHeader("Content-Length", "" + buffer.length);
                 // 通过文件流的形式写到客户端
                 OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
