@@ -159,7 +159,8 @@
     <select id="getSelectByStudentList" resultMap="StudentRecordIngListDTO">
         SELECT stu.avatar,stu.gender,stu.phone,stu.sname,pany.`name`,rec.* from tb_student stu,tb_company
         pany,tb_recording rec where
-        rec.sid=stu.sid and rec.cid=pany.cid
+        rec.sid=stu.sid and rec.cid=pany.cid and
+        rec.did = (select did from tb_student where openid= #{openId,jdbcType=VARCHAR} )
         <if test="sname != null and sname != ''">
             AND sname like concat ('%',#{sname},'%')
         </if>
@@ -224,5 +225,27 @@
     <update id="getInsertThumbup" parameterType="com.example.demo.po.Recording">
       UPDATE tb_recording set thumbup = thumbup+1 where rid = #{rid,jdbcType=INTEGER}
   </update>
-
+<!-- 获取自己的所有录音的信息-->
+    <resultMap id="OwnRecordingListDTO" type="com.example.demo.dto.OwnRecordingListDTO">
+        <id column="rid" jdbcType="INTEGER" property="rid"/>
+        <result column="cid" jdbcType="INTEGER" property="cid"/>
+        <result column="sid" jdbcType="INTEGER" property="sid"/>
+        <result column="did" jdbcType="INTEGER" property="did"/>
+        <result column="thumbup" jdbcType="INTEGER" property="thumbup"/>
+        <result column="visits" jdbcType="INTEGER" property="visits"/>
+        <result column="recordingTime" jdbcType="VARCHAR" property="recordingtime"/>
+        <result column="fileUrl" jdbcType="VARCHAR" property="fileurl"/>
+        <result column="isAdopt" jdbcType="INTEGER" property="isadopt"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="gender" jdbcType="TINYINT" property="gender"/>
+        <result column="sname" jdbcType="VARCHAR" property="sname"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="getSelectStudentAndOecordingList" resultMap="OwnRecordingListDTO">
+        SELECT stu.openid,stu.avatar,stu.gender,stu.phone,stu.sname,pany.`name`,rec.* from
+        tb_recording rec,tb_student stu,tb_company pany where rec.sid=stu.sid AND rec.cid = pany.cid and
+        openid = #{openId,jdbcType=VARCHAR}
+    </select>
 </mapper>

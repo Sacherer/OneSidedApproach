@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.OwnRecordingListDTO;
 import com.example.demo.dto.RecordIngListDTO;
 import com.example.demo.dto.TeacherRecordIngListDTO;
 import com.github.pagehelper.Page;
@@ -52,11 +53,12 @@ public class RecordingController {
     @GetMapping("/getStudentRecording")
     public PageInfo<StudentRecordIngListDTO> getStudentRecording(
             @RequestParam(required = false) String sname,
+            @RequestParam(required = false) String openId,
             @RequestParam(required = false) String name,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum
     ) {
         PageHelper.startPage(pageNum, 5);
-        Page<StudentRecordIngListDTO> RecordIngList = recordingMapper.getSelectByStudentList(sname, name);
+        Page<StudentRecordIngListDTO> RecordIngList = recordingMapper.getSelectByStudentList(sname, name,openId);
 
         for (StudentRecordIngListDTO recordings : RecordIngList) {
             LinkedList<Deptment> list = new LinkedList<>();
@@ -130,9 +132,9 @@ public class RecordingController {
 
     // 获取自己的所有录音的信息
     @GetMapping("/getOwnRecording")
-    public Recording getOwnRecording(@RequestBody String openId) {
-        Recording recording = new Recording();
-        return recording;
+    public List<OwnRecordingListDTO> getOwnRecording(@RequestParam String openId) {
+        List<OwnRecordingListDTO>  ownRecordingListDTO = recordingMapper.getSelectStudentAndOecordingList(openId);
+        return ownRecordingListDTO;
     }
 
     //  删除该学生的录音信息及上传录音文件

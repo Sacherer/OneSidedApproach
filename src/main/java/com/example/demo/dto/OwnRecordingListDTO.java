@@ -6,11 +6,20 @@ import com.example.demo.po.Recording;
 import java.util.List;
 
 public class OwnRecordingListDTO extends Recording {
-    private String name;
+    private String openid;
+    private String sname;
     private String avatar;
     private String phone;
-    private String sname;
     private Byte gender;
+    private String name;// 公司名
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
     public String getName() {
         return name;
