@@ -99,18 +99,6 @@ public class RecordingController {
         return teacherRecordIngListDTOPageInfo;
     }
 
-    @PostMapping("/upload")
-    public void upload(HttpServletRequest request, @RequestParam("file") List<MultipartFile> files, Recording recording) throws IOException {
-        // 上传本地音频
-        for (MultipartFile file : files) {
-            byte data[] = file.getBytes();
-            String uuid = UUID.randomUUID().toString();
-            FileOutputStream out = new FileOutputStream(uuid);
-            System.out.println(uuid); // 获取音频的名称
-            out.write(data);
-            out.close();
-        }
-    }
 
     @GetMapping("/getRecording")
     public Recording getRecording(@RequestParam int rid) {
@@ -121,18 +109,6 @@ public class RecordingController {
     @GetMapping("/likes")
     public void likes(@RequestParam int rid) { //
 
-    }
-
-    @GetMapping("/download")
-    public boolean download(@RequestParam String fileUrl) {
-
-        return false;
-    }
-
-    @GetMapping("/pldownload")
-    public boolean pldownload(@RequestParam String[] fileUrl) {
-
-        return false;
     }
 
     @GetMapping("/getOwnRecording")
