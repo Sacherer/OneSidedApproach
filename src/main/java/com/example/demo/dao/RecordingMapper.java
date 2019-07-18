@@ -23,6 +23,6 @@ public interface RecordingMapper {
 
     Page<StudentRecordIngListDTO> getSelectByStudentList(@Param("sname") String sname, @Param("name") String name);
 
-    Page<TeacherRecordIngListDTO> getSelectByTeacherList(@Param("sname")String sname,@Param("name") String name,@Param("sid") String sid);
+    Page<TeacherRecordIngListDTO> getSelectByTeacherList(@Param("sname") String sname, @Param("name") String name, @Param("sid") String sid);
 
 }

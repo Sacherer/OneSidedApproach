@@ -16,9 +16,9 @@ public class WechatSrController {
 
     @GetMapping("/check")
     public String check(@RequestParam(name = "signature") String signature,
-                            @RequestParam(name = "timestamp") String timestamp,
-                            @RequestParam(name = "nonce") String nonce,
-                            @RequestParam(name = "echostr") String echostr) {
-        return wechatSrService.check(signature,timestamp,nonce,echostr,TOKEN);
+                        @RequestParam(name = "timestamp") String timestamp,
+                        @RequestParam(name = "nonce") String nonce,
+                        @RequestParam(name = "echostr") String echostr) {
+        return wechatSrService.check(signature, timestamp, nonce, echostr, TOKEN);
     }
 }

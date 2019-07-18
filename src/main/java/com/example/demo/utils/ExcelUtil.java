@@ -123,7 +123,7 @@ public class ExcelUtil {
                     String tname = getCellValue(row.getCell(1));
                     String phone = getCellValue(row.getCell(2));
                     String did = getCellValue(row.getCell(3));
-                    importStudentDTO=new ImportStudentDTO(sid,tname,phone,did);
+                    importStudentDTO = new ImportStudentDTO(sid, tname, phone, did);
                     list.add(importStudentDTO);
                 }
             }
@@ -152,7 +152,7 @@ public class ExcelUtil {
                     String sname = getCellValue(row.getCell(1));
                     String phone = getCellValue(row.getCell(2));
                     String did = getCellValue(row.getCell(3));
-                    importTeacherDTO=new ImportTeacherDTO(sid,sname,phone,did);
+                    importTeacherDTO = new ImportTeacherDTO(sid, sname, phone, did);
                     list.add(importTeacherDTO);
                 }
             }

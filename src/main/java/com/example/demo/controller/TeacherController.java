@@ -18,7 +18,7 @@ public class TeacherController {
     private TeacherService teacherService;
 
     @GetMapping("/getTeacher")
-    public Teacher getTeacher(@RequestParam String tid){
+    public Teacher getTeacher(@RequestParam String tid) {
         Teacher teacher = teacherService.selectByPrimaryKey(tid);
         return teacher;
     }
@@ -30,21 +30,21 @@ public class TeacherController {
                              @RequestParam String openId,
                              @RequestParam String nickname,
                              @RequestParam String sex,
-                             @RequestParam String headimgurl){
-        return teacherService.authorize(code,phone,tid,openId,nickname,sex,headimgurl);
+                             @RequestParam String headimgurl) {
+        return teacherService.authorize(code, phone, tid, openId, nickname, sex, headimgurl);
     }
 
     @GetMapping("/check")
-    public boolean check(@RequestParam String openId){
+    public boolean check(@RequestParam String openId) {
         Teacher teacher = teacherService.getTeacherByOpenId(openId);
-        if(teacher!=null){
+        if (teacher != null) {
             return true;
         }
         return false;
     }
-    
+
     @PostMapping("/updateDeptment")
-    public boolean updateDeptment(@RequestParam String tid){
+    public boolean updateDeptment(@RequestParam String tid) {
         return teacherService.updateDeptment(tid);
     }
 

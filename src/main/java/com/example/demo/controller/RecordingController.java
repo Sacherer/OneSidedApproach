@@ -35,15 +35,14 @@ public class RecordingController {
     private DeptmentMapper deptmentMapper;
 
 
-
     @GetMapping("/checkStudent")//did
-    public Student checkStudent(@RequestBody String openId){
+    public Student checkStudent(@RequestBody String openId) {
         Student student = new Student();
         return student;
     }
 
     @GetMapping("/checkTeacher")
-    public Teacher checkTeacher(@RequestBody String openId){
+    public Teacher checkTeacher(@RequestBody String openId) {
         Teacher teacher = new Teacher();
         return teacher;
     }
@@ -52,17 +51,17 @@ public class RecordingController {
     public PageInfo<StudentRecordIngListDTO> getStudentRecording(
             @RequestParam(required = false) String sname,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false,defaultValue = "1") Integer pageNum
-    ){
-        PageHelper.startPage(pageNum,5);
-        Page<StudentRecordIngListDTO> RecordIngList = recordingMapper.getSelectByStudentList(sname,name);
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum
+    ) {
+        PageHelper.startPage(pageNum, 5);
+        Page<StudentRecordIngListDTO> RecordIngList = recordingMapper.getSelectByStudentList(sname, name);
 
         for (StudentRecordIngListDTO recordings : RecordIngList) {
             LinkedList<Deptment> list = new LinkedList<>();
             Deptment deptment = deptmentMapper.selectByPrimaryKey(recordings.getDid());
             list.add(deptment);
             Integer pid = deptment.getPid();
-            if(pid!=null && pid!=0){
+            if (pid != null && pid != 0) {
                 deptment = deptmentMapper.getSelectByAreaId(pid);
                 list.add(deptment);
                 pid = deptment.getPid();
@@ -75,25 +74,25 @@ public class RecordingController {
     }
 
     @GetMapping("/getTeacherRecording")
-    public  PageInfo<TeacherRecordIngListDTO> getTeacherRecording(
+    public PageInfo<TeacherRecordIngListDTO> getTeacherRecording(
             @RequestParam(required = false) String sname,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String sid,
-            @RequestParam(required = false,defaultValue = "1") Integer pageNum
-    ){
-        PageHelper.startPage(pageNum,5);
-        Page<TeacherRecordIngListDTO> teacherRecordIng = recordingMapper.getSelectByTeacherList(sname,name,sid);
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum
+    ) {
+        PageHelper.startPage(pageNum, 5);
+        Page<TeacherRecordIngListDTO> teacherRecordIng = recordingMapper.getSelectByTeacherList(sname, name, sid);
         for (TeacherRecordIngListDTO teacherList : teacherRecordIng) {
             LinkedList<Deptment> list = new LinkedList<>();
             Deptment deptment = deptmentMapper.selectByPrimaryKey(teacherList.getDid());
             list.add(deptment);
             Integer pid = deptment.getPid();
-            if(pid != null && pid !=0){
+            if (pid != null && pid != 0) {
                 deptment = deptmentMapper.getSelectByAreaId(pid);
                 list.add(deptment);
                 pid = deptment.getPid();
             }
-           Collections.reverse(list);
+            Collections.reverse(list);
             teacherList.setDeptments(list);
         }
         PageInfo<TeacherRecordIngListDTO> teacherRecordIngListDTOPageInfo = teacherRecordIng.toPageInfo();
@@ -103,8 +102,8 @@ public class RecordingController {
     @PostMapping("/upload")
     public void upload(HttpServletRequest request, @RequestParam("file") List<MultipartFile> files, Recording recording) throws IOException {
         // 上传本地音频
-       for (MultipartFile file : files) {
-            byte data[] =  file.getBytes();
+        for (MultipartFile file : files) {
+            byte data[] = file.getBytes();
             String uuid = UUID.randomUUID().toString();
             FileOutputStream out = new FileOutputStream(uuid);
             System.out.println(uuid); // 获取音频的名称
@@ -114,34 +113,36 @@ public class RecordingController {
     }
 
     @GetMapping("/getRecording")
-    public Recording getRecording(@RequestParam int rid){
+    public Recording getRecording(@RequestParam int rid) {
         Recording recording = new Recording();
         return recording;
     }
 
     @GetMapping("/likes")
-    public void likes(@RequestParam int rid){ //
+    public void likes(@RequestParam int rid) { //
 
     }
 
     @GetMapping("/download")
-    public boolean download(@RequestParam String fileUrl){
+    public boolean download(@RequestParam String fileUrl) {
 
         return false;
     }
+
     @GetMapping("/pldownload")
-    public boolean pldownload(@RequestParam String[] fileUrl){
+    public boolean pldownload(@RequestParam String[] fileUrl) {
 
         return false;
     }
+
     @GetMapping("/getOwnRecording")
-    public Recording getOwnRecording(@RequestBody String openId){
+    public Recording getOwnRecording(@RequestBody String openId) {
         Recording recording = new Recording();
         return recording;
     }
 
     @PostMapping("/deleteOwn")
-    public void deleteOwn(@RequestBody String openId){
+    public void deleteOwn(@RequestBody String openId) {
 
     }
 

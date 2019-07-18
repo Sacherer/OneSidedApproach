@@ -17,10 +17,10 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherMapper teacherMapper;
 
     @Override
-    public boolean authorize(String code, String phone,String tid, String openId,String nickname,String sex,String headimgurl) {
-        String syscode = (String)redisTemplate.opsForValue().get("code" + phone);
-        if(syscode!=null&&syscode.equals(code)){
-            teacherMapper.updateByTid(tid,openId,nickname,sex,headimgurl);
+    public boolean authorize(String code, String phone, String tid, String openId, String nickname, String sex, String headimgurl) {
+        String syscode = (String) redisTemplate.opsForValue().get("code" + phone);
+        if (syscode != null && syscode.equals(code)) {
+            teacherMapper.updateByTid(tid, openId, nickname, sex, headimgurl);
             return true;
         }
         return false;
@@ -39,7 +39,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public boolean updateDeptment(String tid) {
         int i = teacherMapper.updateDeptmentByTid(tid);
-        if(i>0){
+        if (i > 0) {
             return true;
         }
         return false;

@@ -27,7 +27,7 @@ public class StudentController {
                              @RequestParam String nickname,
                              @RequestParam String sex,
                              @RequestParam String headimgurl) {
-        return studentService.authorize(code,phone,sid,openId,nickname,sex,headimgurl);
+        return studentService.authorize(code, phone, sid, openId, nickname, sex, headimgurl);
     }
 
     @GetMapping("/check")

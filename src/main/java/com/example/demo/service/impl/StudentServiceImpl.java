@@ -50,20 +50,20 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void send(String phone) {
         String code = RandomStringUtils.randomNumeric(6);
-        logger.info("code is {}",code);
-        redisTemplate.opsForValue().set("code"+phone,code,5, TimeUnit.MINUTES);
+        logger.info("code is {}", code);
+        redisTemplate.opsForValue().set("code" + phone, code, 5, TimeUnit.MINUTES);
         try {
-            smsUtil.sendSms(phone,template_code,sign_name,"{\"code\":\""+code+"\"}");
+            smsUtil.sendSms(phone, template_code, sign_name, "{\"code\":\"" + code + "\"}");
         } catch (ClientException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public boolean authorize(String code, String phone,String sid, String openId,String nickname,String sex,String headimgurl) {
-        String syscode = (String)redisTemplate.opsForValue().get("code" + phone);
-        if(syscode!=null&&syscode.equals(code)){
-            studentMapper.updateBySid(sid,openId,nickname,sex,headimgurl);
+    public boolean authorize(String code, String phone, String sid, String openId, String nickname, String sex, String headimgurl) {
+        String syscode = (String) redisTemplate.opsForValue().get("code" + phone);
+        if (syscode != null && syscode.equals(code)) {
+            studentMapper.updateBySid(sid, openId, nickname, sex, headimgurl);
             return true;
         }
         return false;

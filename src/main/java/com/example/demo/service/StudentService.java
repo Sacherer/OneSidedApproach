@@ -9,5 +9,5 @@ public interface StudentService {
 
     void send(String phone);
 
-    boolean authorize(String code, String phone,String sid, String openId,String nickname,String sex,String headimgurl);
+    boolean authorize(String code, String phone, String sid, String openId, String nickname, String sex, String headimgurl);
 }

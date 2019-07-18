@@ -1,4 +1,5 @@
 package com.example.demo.utils;
+
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsRequest;
@@ -15,18 +16,19 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
  * 短信工具类
- * @author Administrator
  *
+ * @author Administrator
  */
 @Component
 public class SmsUtil {
 
     @Value("${sms.send.accessKeyId}")
-    private  String accessKeyId;
+    private String accessKeyId;
     @Value("${sms.send.accessKeySecret}")
-    private  String accessKeySecret;
+    private String accessKeySecret;
 
     //产品名称:云通信短信API产品,开发者无需替换
     static final String product = "Dysmsapi";
@@ -37,14 +39,15 @@ public class SmsUtil {
 
     /**
      * 发送短信
-     * @param mobile 手机号
+     *
+     * @param mobile        手机号
      * @param template_code 模板号
-     * @param sign_name 签名
-     * @param param 参数
+     * @param sign_name     签名
+     * @param param         参数
      * @return
      * @throws ClientException
      */
-    public SendSmsResponse sendSms(String mobile,String template_code,String sign_name,String param) throws ClientException {
+    public SendSmsResponse sendSms(String mobile, String template_code, String sign_name, String param) throws ClientException {
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -71,7 +74,7 @@ public class SmsUtil {
         return sendSmsResponse;
     }
 
-    public  QuerySendDetailsResponse querySendDetails(String mobile,String bizId) throws ClientException {
+    public QuerySendDetailsResponse querySendDetails(String mobile, String bizId) throws ClientException {
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");

@@ -17,13 +17,13 @@ public class TestController {
     private SmsUtil sendSms;
 
     @RequestMapping("/t1")
-    public String test(){
+    public String test() {
         return "测试内网穿透！";
     }
 
     @RequestMapping("/t2")
     public String test1() throws ClientException {
-        sendSms.sendSms("1","1","1","1");
+        sendSms.sendSms("1", "1", "1", "1");
         return "测试内网穿透！";
     }
 
