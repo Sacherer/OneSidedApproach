@@ -11,11 +11,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.dao.RecordingMapper;
+import com.example.demo.po.Recording;
 import com.example.demo.utils.FastDFSClient;
 import com.example.demo.utils.FastDFSPollClient;
 import com.example.demo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,8 @@ public class FileController
     @Autowired
     private FastDFSPollClient fastDFSPollClient;
 
+    @Autowired
+    private RecordingMapper recordingMapper;
 
     /**
      * 上传文件
@@ -41,8 +44,17 @@ public class FileController
      * @return
      */
 
+
+    @PostMapping("uploadMsg")
+    public boolean uploadMsg(@RequestBody Recording recording){
+        int insert = recordingMapper.insert(recording);
+        if(insert>0){
+            return true;
+        }
+        return false;
+    }
+
     @RequestMapping(value = "uploadFile", method = RequestMethod.POST)
-    @Async
     public Map<String, Object> uploadFile(@RequestParam MultipartFile filedata)
     {
 
