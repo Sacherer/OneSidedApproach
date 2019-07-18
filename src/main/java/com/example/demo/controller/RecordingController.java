@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.RecordIngListDTO;
 import com.example.demo.dto.TeacherRecordIngListDTO;
 import com.github.pagehelper.Page;
 import com.example.demo.dao.DeptmentMapper;
@@ -99,11 +100,24 @@ public class RecordingController {
         return teacherRecordIngListDTOPageInfo;
     }
 
-
     @GetMapping("/getRecording")
-    public Recording getRecording(@RequestParam int rid) {
-        Recording recording = new Recording();
-        return recording;
+    public RecordIngListDTO getRecording(@RequestParam int rid) {
+        RecordIngListDTO recordIngListDTO = recordingMapper.selectByPrimaryKey2(rid);
+
+        LinkedList<Integer> list = new LinkedList<>();
+        Deptment deptment = deptmentMapper.selectByPrimaryKey(recordIngListDTO.getDid());
+        list.add(recordIngListDTO.getDid());
+
+        Integer pid = deptment.getPid();
+        if(pid!=null && pid !=0){
+            deptment = deptmentMapper.getSelectByAreaId(pid);
+            list.add(deptment.getPid());
+            pid = deptment.getPid();
+        }
+        Collections.reverse(list);
+        recordIngListDTO.setDids(list);
+
+        return recordIngListDTO;
     }
 
     @GetMapping("/likes")

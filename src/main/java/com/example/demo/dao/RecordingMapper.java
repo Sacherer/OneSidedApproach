@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.dto.RecordIngListDTO;
 import com.example.demo.dto.StudentRecordIngListDTO;
 import com.example.demo.dto.TeacherRecordIngListDTO;
 import com.example.demo.po.Recording;
@@ -25,4 +26,5 @@ public interface RecordingMapper {
 
     Page<TeacherRecordIngListDTO> getSelectByTeacherList(@Param("sname") String sname, @Param("name") String name, @Param("sid") String sid);
 
+    RecordIngListDTO selectByPrimaryKey2(@Param("rid") int rid);
 }

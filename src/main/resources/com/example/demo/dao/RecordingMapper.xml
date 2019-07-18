@@ -197,4 +197,25 @@
             AND rec.sid like concat ('%',#{sid},'%')
         </if>
     </select>
+    <resultMap id="RecordIngListDTO" type="com.example.demo.dto.RecordIngListDTO">
+        <id column="rid" jdbcType="INTEGER" property="rid"/>
+        <result column="cid" jdbcType="INTEGER" property="cid"/>
+        <result column="sid" jdbcType="INTEGER" property="sid"/>
+        <result column="did" jdbcType="INTEGER" property="did"/>
+        <result column="thumbup" jdbcType="INTEGER" property="thumbup"/>
+        <result column="visits" jdbcType="INTEGER" property="visits"/>
+        <result column="recordingTime" jdbcType="VARCHAR" property="recordingtime"/>
+        <result column="fileUrl" jdbcType="VARCHAR" property="fileurl"/>
+        <result column="isAdopt" jdbcType="INTEGER" property="isadopt"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="gender" jdbcType="TINYINT" property="gender"/>
+        <result column="tname" jdbcType="VARCHAR" property="tname"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+    <select id="selectByPrimaryKey2" resultMap="RecordIngListDTO">
+        SELECT stu.avatar,stu.gender,stu.phone,stu.sname,pany.`name`,rec.* from tb_student stu,tb_company
+        pany,tb_recording rec where
+        rec.sid=stu.sid and rec.cid=pany.cid  and rid = #{rid,jdbcType=INTEGER}
+    </select>
 </mapper>
