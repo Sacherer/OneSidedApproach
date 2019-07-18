@@ -11,13 +11,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.dao.RecordingMapper;
+import com.example.demo.po.Recording;
 import com.example.demo.utils.FastDFSClient;
+import com.example.demo.utils.FastDFSPollClient;
 import com.example.demo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -29,6 +30,12 @@ public class FileController
     @Autowired
     private FastDFSClient fastDFSClient;
 
+    @Autowired
+    private FastDFSPollClient fastDFSPollClient;
+
+    @Autowired
+    private RecordingMapper recordingMapper;
+
     /**
      * 上传文件
      *
@@ -39,6 +46,7 @@ public class FileController
      */
 
     @RequestMapping(value = "uploadFile", method = RequestMethod.POST)
+    @Async
     public Map<String, Object> uploadFile(@RequestParam MultipartFile filedata)
     {
 
@@ -48,9 +56,7 @@ public class FileController
         {
             try
             {
-
-                String path = fastDFSClient.uploadFile(filedata.getBytes(), filedata.getOriginalFilename());
-
+                String path = fastDFSPollClient.uploadFile(filedata.getBytes(), filedata.getOriginalFilename());
                 m.put("code", 200);
                 m.put("url", path);
                 m.put("msg", "上传成功");
@@ -102,9 +108,9 @@ public class FileController
         try
         {
             // 判断文件是否存在
-            if (fastDFSClient.getFileInfo(path) != null)
+            if (fastDFSPollClient.getFileInfo(path) != null)
             {
-                byte[] buffer = fastDFSClient.downloadFile(path);
+                byte[] buffer = fastDFSPollClient.downloadFile(path);
                 // 清空response
                 filenames=URLEncoder.encode(filenames, "UTF-8");
                 response.reset();
