@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
-@RequestMapping("/file/*")
+@RequestMapping("/file")
 public class FileController
 {
 
@@ -36,6 +36,7 @@ public class FileController
      * @date 2016-12-12
      * @return
      */
+
     @RequestMapping(value = "uploadFile", method = RequestMethod.POST)
     public Map<String, Object> uploadFile(@RequestParam MultipartFile filedata)
     {
@@ -52,7 +53,7 @@ public class FileController
                 m.put("code", 200);
                 m.put("url", path);
                 m.put("msg", "上传成功");
-
+                System.out.println(path);
             }
             catch (Exception e)
             {
