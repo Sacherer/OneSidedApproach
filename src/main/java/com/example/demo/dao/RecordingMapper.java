@@ -7,8 +7,6 @@ import com.example.demo.po.Recording;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface RecordingMapper {
     int deleteByPrimaryKey(Integer rid);
 
@@ -27,4 +25,9 @@ public interface RecordingMapper {
     Page<TeacherRecordIngListDTO> getSelectByTeacherList(@Param("sname") String sname, @Param("name") String name, @Param("sid") String sid);
 
     RecordIngListDTO selectByPrimaryKey2(@Param("rid") int rid);
+
+
+    void getUpdatevisits(@Param("rid") int rid);
+
+    void getInsertThumbup(@Param("rid") int rid);
 }

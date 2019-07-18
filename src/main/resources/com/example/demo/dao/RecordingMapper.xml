@@ -218,4 +218,11 @@
         pany,tb_recording rec where
         rec.sid=stu.sid and rec.cid=pany.cid  and rid = #{rid,jdbcType=INTEGER}
     </select>
+    <update id="getUpdatevisits" parameterType="com.example.demo.po.Recording">
+      UPDATE tb_recording set visits = visits+1 where rid = #{rid,jdbcType=INTEGER}
+  </update>
+    <update id="getInsertThumbup" parameterType="com.example.demo.po.Recording">
+      UPDATE tb_recording set thumbup = thumbup+1 where rid = #{rid,jdbcType=INTEGER}
+  </update>
+
 </mapper>

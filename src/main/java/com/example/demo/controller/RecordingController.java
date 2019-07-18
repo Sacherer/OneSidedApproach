@@ -48,6 +48,7 @@ public class RecordingController {
         return teacher;
     }
 
+    // 学生查看自己录音的详情
     @GetMapping("/getStudentRecording")
     public PageInfo<StudentRecordIngListDTO> getStudentRecording(
             @RequestParam(required = false) String sname,
@@ -74,6 +75,7 @@ public class RecordingController {
         return studentRecordIngListDTOPageInfo;
     }
 
+    // 老师查看的录音详情
     @GetMapping("/getTeacherRecording")
     public PageInfo<TeacherRecordIngListDTO> getTeacherRecording(
             @RequestParam(required = false) String sname,
@@ -100,10 +102,11 @@ public class RecordingController {
         return teacherRecordIngListDTOPageInfo;
     }
 
+    // 点击某一条录音展示详情并且获取浏览量
     @GetMapping("/getRecording")
     public RecordIngListDTO getRecording(@RequestParam int rid) {
+        recordingMapper.getUpdatevisits(rid);
         RecordIngListDTO recordIngListDTO = recordingMapper.selectByPrimaryKey2(rid);
-
         LinkedList<Integer> list = new LinkedList<>();
         Deptment deptment = deptmentMapper.selectByPrimaryKey(recordIngListDTO.getDid());
         list.add(recordIngListDTO.getDid());
@@ -116,21 +119,23 @@ public class RecordingController {
         }
         Collections.reverse(list);
         recordIngListDTO.setDids(list);
-
-        return recordIngListDTO;
+        return  recordIngListDTO;
     }
 
+//   点赞
     @GetMapping("/likes")
-    public void likes(@RequestParam int rid) { //
-
+    public void likes(@RequestParam int rid) {
+        recordingMapper.getInsertThumbup(rid);
     }
 
+    // 获取自己的所有录音的信息
     @GetMapping("/getOwnRecording")
     public Recording getOwnRecording(@RequestBody String openId) {
         Recording recording = new Recording();
         return recording;
     }
 
+    //  删除该学生的录音信息及上传录音文件
     @PostMapping("/deleteOwn")
     public void deleteOwn(@RequestBody String openId) {
 
