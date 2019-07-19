@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.OwnRecordingListDTO;
 import com.example.demo.dto.RecordIngListDTO;
 import com.example.demo.dto.TeacherRecordIngListDTO;
+import com.example.demo.utils.FastDFSPollClient;
 import com.github.pagehelper.Page;
 import com.example.demo.dao.DeptmentMapper;
 import com.example.demo.dao.RecordingMapper;
@@ -18,8 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.demo.utils.FastDFSClient;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,6 +38,8 @@ public class RecordingController {
     private RecordingMapper recordingMapper;
     @Autowired
     private DeptmentMapper deptmentMapper;
+    @Autowired
+    private FastDFSPollClient fastDFSPollClient;
 
 
     @GetMapping("/checkStudent")//did
@@ -139,9 +144,33 @@ public class RecordingController {
 
     //  删除该学生的录音信息及上传录音文件
     @PostMapping("/deleteOwn")
-    public void deleteOwn(@RequestBody String openId) {
+    public void deleteOwn(@RequestParam Integer rid,
+                          HttpServletResponse response, @RequestParam("path") String path) {
 
+        if (fastDFSPollClient.getFileInfo(path) != null){
+            fastDFSPollClient.deleteFile(path);
+        }
+       recordingMapper.deleteByPrimaryKey(rid);
     }
 
+    @GetMapping("/getStudentlist")
+    public List<StudentRecordIngListDTO> getStudentlist(@RequestParam Integer tid){
+        List<StudentRecordIngListDTO> studentAndDeptmant = recordingMapper.getStudentAndDeptmant(tid);
+
+        for (StudentRecordIngListDTO studentRecordIngListDTO : studentAndDeptmant) {
+            LinkedList<Deptment> list = new LinkedList<>();
+            Deptment deptment = deptmentMapper.selectByPrimaryKey(studentRecordIngListDTO.getDid());
+            list.add(deptment);
+            Integer pid = deptment.getPid();
+            if (pid != null && pid != 0) {
+                deptment = deptmentMapper.getSelectByAreaId(pid);
+                list.add(deptment);
+                pid = deptment.getPid();
+            }
+            Collections.reverse(list);
+            studentRecordIngListDTO.setDeptments(list);
+        }
+           return  studentAndDeptmant;
+    }
 
 }

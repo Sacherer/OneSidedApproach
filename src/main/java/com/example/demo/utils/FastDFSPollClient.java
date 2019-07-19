@@ -19,14 +19,16 @@ import java.util.Map;
 @Component
 public class FastDFSPollClient
 {
+
     /** 连接池 */
     @Autowired
-    private ConnectionPool connectionPool;
+    private  ConnectionPool connectionPool;
 
     /**
      * 上传文件
      *
-     * @param file
+     *
+     *
      *            文件对象
      * @param fileName
      *            文件名
@@ -45,8 +47,6 @@ public class FastDFSPollClient
     /**
      * 上传文件
      *
-     * @param file
-     *            文件对象
      * @param fileName
      *            文件名
      * @param metaList
@@ -229,6 +229,4 @@ public class FastDFSPollClient
         }
         return null;
     }
-
-
 }

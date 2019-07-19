@@ -35,4 +35,6 @@ public interface RecordingMapper {
     void getInsertThumbup(@Param("rid") int rid);
 
     List<OwnRecordingListDTO> getSelectStudentAndOecordingList(@Param("openId") String openId);
+
+    List<StudentRecordIngListDTO> getStudentAndDeptmant(@Param("tid") Integer tid);
 }

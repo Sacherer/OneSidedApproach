@@ -112,7 +112,7 @@ public class FileController
                 response.reset();
                 // 设置response的Header
                 response.addHeader("Content-Disposition",
-                        "attachment;filename=" + filenames);
+                    "attachment;filename=" + filenames);
                 response.addHeader("Content-Length", "" + buffer.length);
                 // 通过文件流的形式写到客户端
                 OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
