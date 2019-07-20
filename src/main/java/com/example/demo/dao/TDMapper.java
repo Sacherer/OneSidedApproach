@@ -14,4 +14,6 @@ public interface TDMapper {
     int updateByPrimaryKeySelective(TD record);
 
     int updateByPrimaryKey(TD record);
+
+    int deleteByTid(String tid);
 }

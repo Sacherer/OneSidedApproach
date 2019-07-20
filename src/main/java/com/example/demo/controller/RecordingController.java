@@ -54,7 +54,7 @@ public class RecordingController {
         return teacher;
     }
 
-    // 学生查看自己录音的详情
+    // 学生查看自己班级录音的详情
     @GetMapping("/getStudentRecording")
     public PageInfo<StudentRecordIngListDTO> getStudentRecording(
             @RequestParam(required = false) String sname,

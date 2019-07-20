@@ -14,11 +14,17 @@
         from tb_company
         where cid = #{cid,jdbcType=INTEGER}
     </select>
+    <select id="getByCname" resultType="com.example.demo.po.Company">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_company
+        where name = #{cname}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_company
     where cid = #{cid,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.example.demo.po.Company">
+    <insert id="insert" parameterType="com.example.demo.po.Company" useGeneratedKeys="true" keyProperty="cid">
     insert into tb_company (cid, name)
     values (#{cid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>

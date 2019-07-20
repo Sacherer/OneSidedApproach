@@ -7,12 +7,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.dao.CompanyMapper;
+import com.example.demo.dao.DeptmentMapper;
 import com.example.demo.dao.RecordingMapper;
+import com.example.demo.po.Company;
 import com.example.demo.po.Recording;
+import com.example.demo.service.PldownloadService;
 import com.example.demo.utils.FastDFSClient;
 import com.example.demo.utils.FastDFSPollClient;
 import com.example.demo.utils.FileUtil;
@@ -35,6 +40,11 @@ public class FileController
     @Autowired
     private RecordingMapper recordingMapper;
 
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
+    private PldownloadService pldownloadService;
     /**
      * 上传文件
      *
@@ -46,7 +56,16 @@ public class FileController
 
 
     @PostMapping("uploadMsg")
-    public boolean uploadMsg(@RequestBody Recording recording){
+    public boolean uploadMsg(@RequestBody Recording recording,@RequestParam String cname){
+        Company company =  companyMapper.getByCname(cname);
+        if(company!=null){
+            recording.setCid(company.getCid());
+        }else{
+            Company c = new Company();
+            c.setName(cname);
+            companyMapper.insert(c);
+            recording.setCid(c.getCid());
+        }
         int insert = recordingMapper.insert(recording);
         if(insert>0){
             return true;
@@ -140,6 +159,12 @@ public class FileController
         {
             e.printStackTrace();
         }
+    }
+
+
+    @GetMapping("/plDownload")
+    public void plDownload(HttpServletResponse response, @RequestParam String ids){
+        pldownloadService.plDownload(response,ids);
     }
 
 }

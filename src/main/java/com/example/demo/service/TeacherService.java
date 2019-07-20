@@ -9,5 +9,5 @@ public interface TeacherService {
 
     Teacher selectByPrimaryKey(String tid);
 
-    boolean updateDeptment(String tid);
+    boolean updateDeptment(String tid,String did);
 }

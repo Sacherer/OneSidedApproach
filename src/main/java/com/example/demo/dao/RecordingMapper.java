@@ -37,4 +37,6 @@ public interface RecordingMapper {
     List<OwnRecordingListDTO> getSelectStudentAndOecordingList(@Param("openId") String openId);
 
     List<StudentRecordIngListDTO> getStudentAndDeptmant(@Param("tid") Integer tid);
+
+    List<StudentRecordIngListDTO> selectByIds(String ids);
 }

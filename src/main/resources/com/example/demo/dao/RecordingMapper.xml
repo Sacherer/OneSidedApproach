@@ -254,4 +254,9 @@
              rec.sid=stu.sid and rec.cid=pany.cid and
              rec.did in (select rec.did from t_d where tid  = #{tid,jdbcType=INTEGER})
     </select>
+    <select id="selectByIds" resultMap="StudentRecordIngListDTO">
+        SELECT stu.avatar,stu.gender,stu.phone,stu.sname,pany.`name`,rec.* from tb_student stu,tb_company
+        pany,tb_recording rec where
+        rec.sid=stu.sid and rec.cid=pany.cid and rec.rid in (${ids})
+    </select>
 </mapper>

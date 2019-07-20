@@ -19,7 +19,11 @@
     delete from t_d
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.po.TD">
+    <delete id="deleteByTid">
+      delete from t_d
+    where tid = #{tid}
+    </delete>
+    <insert id="insert" parameterType="com.example.demo.po.TD">
     insert into t_d (id, did, tid)
     values (#{id,jdbcType=INTEGER}, #{did,jdbcType=INTEGER}, #{tid,jdbcType=VARCHAR})
   </insert>

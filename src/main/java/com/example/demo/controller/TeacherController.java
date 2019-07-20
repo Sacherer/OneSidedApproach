@@ -43,9 +43,9 @@ public class TeacherController {
         return false;
     }
 
-    @PostMapping("/updateDeptment")
-    public boolean updateDeptment(@RequestParam String tid) {
-        return teacherService.updateDeptment(tid);
+    @GetMapping("/updateDeptment")
+    public boolean updateDeptment(@RequestParam String tid,@RequestParam String did) {
+        return teacherService.updateDeptment(tid,did);
     }
 
     @GetMapping("/send")
