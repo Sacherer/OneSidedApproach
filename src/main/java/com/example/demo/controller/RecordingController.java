@@ -154,8 +154,11 @@ public class RecordingController {
     }
 
     @GetMapping("/getStudentlist")
-    public List<StudentRecordIngListDTO> getStudentlist(@RequestParam Integer tid){
-        List<StudentRecordIngListDTO> studentAndDeptmant = recordingMapper.getStudentAndDeptmant(tid);
+         public PageInfo<StudentRecordIngListDTO> getStudentlist(@RequestParam String tid,
+            @RequestParam(required = false, defaultValue = "1") Integer pageNum
+    ){
+         PageHelper.startPage(pageNum, 5);
+         Page<StudentRecordIngListDTO> studentAndDeptmant = recordingMapper.getStudentAndDeptmant(tid);
 
         for (StudentRecordIngListDTO studentRecordIngListDTO : studentAndDeptmant) {
             LinkedList<Deptment> list = new LinkedList<>();
@@ -170,7 +173,8 @@ public class RecordingController {
             Collections.reverse(list);
             studentRecordIngListDTO.setDeptments(list);
         }
-           return  studentAndDeptmant;
+        PageInfo<StudentRecordIngListDTO> studentAndDeptmantPageInfo = studentAndDeptmant.toPageInfo();
+           return  studentAndDeptmantPageInfo;
     }
 
 }

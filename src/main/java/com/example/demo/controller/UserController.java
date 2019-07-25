@@ -35,6 +35,7 @@ public class UserController {
 
     @GetMapping("/login")
     public boolean login(@RequestParam String phone,@RequestParam String code){
+
         return userService.login(phone,code);
     }
 }

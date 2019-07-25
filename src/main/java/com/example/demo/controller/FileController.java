@@ -58,7 +58,7 @@ public class FileController
     @PostMapping("uploadMsg")
     public boolean uploadMsg(@RequestBody Recording recording,@RequestParam String cname){
         Company company =  companyMapper.getByCname(cname);
-        if(company!=null){
+            if(company!=null){
             recording.setCid(company.getCid());
         }else{
             Company c = new Company();
